@@ -11,6 +11,7 @@ import android.widget.CalendarView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -23,48 +24,38 @@ Date selecetedDate;
         setContentView(R.layout.activity_main);
         calenderView = (CalendarView)findViewById(R.id.datePicker);
         registerForContextMenu(calenderView);
+
         calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange( CalendarView view, int year, int month, int dayOfMonth) {
-
-                //setContentView(R.layout.date_event);
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                Toast.makeText(getApplicationContext(), "Date:" + (dayOfMonth+1)+"month: "+ month, Toast.LENGTH_SHORT).show();
+                selecetedDate = new Date(year,month,dayOfMonth);
+                view.showContextMenu();
             }
         });
-        selecetedDate =new Date(calenderView.getDate());
+    }
 
-    }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.layout.context_menu, menu);
-        return true;
-    }
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v == calenderView)
-        {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.layout.context_menu, menu);
-        }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+        menu.setHeaderTitle(selecetedDate.getDate()+"-"+
+                (selecetedDate.getMonth()+1)+"-"+
+                selecetedDate.getYear());
     }
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        Log.d(tag, "Context item selected " + item.getItemId());
-        switch (item.getItemId()) {
-            case R.id.create1:
-                Toast.makeText(getBaseContext(), "CREATE", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.update1:
-                Toast.makeText(getBaseContext(), "UPDATE", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.print:
-                Toast.makeText(this, "Print ....", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
+        if (item.getItemId() == R.id.create1)
+        {
+            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+        else{
                 return super.onContextItemSelected(item);
         }
     }
+
 }

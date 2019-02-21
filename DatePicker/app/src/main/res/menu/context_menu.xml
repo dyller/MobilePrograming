@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity" >
 
-    <item android:id="@+id/create1" android:title="Create" />
+    <item android:id="@+id/create1" android:title="Add event" />
 
-    <item android:id="@+id/update1" android:title="Update" />
-
-    <item android:id="@+id/delete1" android:title="Delete" />
-
-    <item android:id="@+id/print" android:title="Print" />
 
 </menu>
