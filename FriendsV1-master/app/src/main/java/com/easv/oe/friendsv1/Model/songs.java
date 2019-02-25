@@ -22,11 +22,19 @@ public class songs {
         this.title = title;
     }
 
-    public String getSongName() {
+    public String getArtist() {
         return artist;
     }
 
-    public void setSongName(String songName) {
+    public void setArtist(String songName) {
         this.artist = songName;
     }
+
+    public int getYear() { return year;}
+
+    public void setYear(int year) {this.year = year; }
+
+    public int getBpm() { return bpm;}
+
+    public void setBpm(int bpm) { this.bpm = bpm; }
 }
